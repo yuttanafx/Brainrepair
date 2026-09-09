@@ -21,7 +21,7 @@ export const lessons: Lesson[] = [
     section: SECTION_1,
     title: "นิยามของความสุข",
     duration: "08:05",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+    videoUrl: "https://youtube.com/shorts/6UoBmvfM-kY?feature=share",
     description:
       'ทำความเข้าใจว่าแท้จริงแล้ว "ความสุข" คืออะไร และทำไมแต่ละคนถึงนิยามมันไม่เหมือนกัน ก่อนจะเริ่มเดินทางเข้าสู่เนื้อหาทั้งเล่ม',
     points: ["ความสุขไม่ใช่จุดหมายปลายทางเดียว", "แยกความสุขออกจากความพึงพอใจชั่วคราว", "ตั้งกรอบความคิดก่อนเริ่มบทถัดไป"],
