@@ -2,15 +2,25 @@
 
 import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import ControlsBar from "../components/ControlsBar";
+import { useLanguage } from "../providers/language-provider";
+import { uiText } from "@/lib/i18n";
 
 function LoginForm() {
   const router = useRouter();
   const params = useSearchParams();
   const next = params.get("next") || "/learn";
+  const { lang } = useLanguage();
+  const t = uiText[lang];
 
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const errorMessages: Record<string, string> = {
+    invalid_password: t.invalidPassword,
+    server_not_configured: t.serverNotConfigured,
+  };
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -24,14 +34,14 @@ function LoginForm() {
       });
       const data = await res.json();
       if (!res.ok) {
-        setError(data.error || "เกิดข้อผิดพลาด");
+        setError(errorMessages[data.error] || data.error || t.loginGenericError);
         setLoading(false);
         return;
       }
       router.push(data.redirect);
       router.refresh();
     } catch {
-      setError("เชื่อมต่อเซิร์ฟเวอร์ไม่ได้ ลองใหม่อีกครั้ง");
+      setError(t.loginConnError);
       setLoading(false);
     }
   }
@@ -44,8 +54,13 @@ function LoginForm() {
         alignItems: "center",
         justifyContent: "center",
         padding: 24,
+        position: "relative",
       }}
     >
+      <div style={{ position: "absolute", top: 20, right: 20 }}>
+        <ControlsBar />
+      </div>
+
       <form
         onSubmit={handleSubmit}
         className="glass-panel"
@@ -57,13 +72,11 @@ function LoginForm() {
           boxShadow: "0 20px 60px rgba(0,0,0,0.5)",
         }}
       >
-        <h1 style={{ fontSize: "1.4rem" }}>เข้าเรียน</h1>
-        <p style={{ marginTop: 8, color: "var(--ink-soft)", fontSize: "0.92rem" }}>
-          คอร์สนี้เปิดให้เฉพาะผู้ที่ได้รับรหัสผ่าน กรอกรหัสผ่านที่ได้รับเพื่อเข้าเรียน
-        </p>
+        <h1 style={{ fontSize: "1.4rem" }}>{t.loginHeading}</h1>
+        <p style={{ marginTop: 8, color: "var(--ink-soft)", fontSize: "0.92rem" }}>{t.loginSubtitle}</p>
 
         <label style={{ display: "block", marginTop: 24, fontSize: "0.88rem", color: "var(--ink-soft)" }}>
-          รหัสผ่าน
+          {t.passwordLabel}
         </label>
         <input
           type="password"
@@ -86,7 +99,7 @@ function LoginForm() {
         {error && <p className="error-text">{error}</p>}
 
         <button type="submit" className="btn-primary" disabled={loading} style={{ width: "100%", marginTop: 22 }}>
-          {loading ? "กำลังตรวจสอบ..." : "เข้าเรียน"}
+          {loading ? t.loginButtonLoading : t.loginButton}
         </button>
       </form>
     </main>

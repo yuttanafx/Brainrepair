@@ -1,9 +1,13 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useLanguage } from "../../providers/language-provider";
+import { uiText } from "@/lib/i18n";
 
 export default function LogoutButton() {
   const router = useRouter();
+  const { lang } = useLanguage();
+  const t = uiText[lang];
 
   async function handleLogout() {
     await fetch("/api/logout", { method: "POST" });
@@ -23,7 +27,7 @@ export default function LogoutButton() {
         fontFamily: "var(--font-sans)",
       }}
     >
-      ออกจากระบบ
+      {t.logout}
     </button>
   );
 }

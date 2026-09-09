@@ -1,4 +1,5 @@
-:root {
+:root,
+[data-theme="dark"] {
   --ink: #eaf6ff;
   --ink-soft: #93a8c2;
   --paper: #050810;
@@ -10,6 +11,28 @@
   --card-bg: rgba(13, 20, 36, 0.66);
   --card-bg-strong: rgba(9, 14, 26, 0.85);
   --glow: 0 0 24px rgba(53, 231, 195, 0.25);
+  --grid-line: rgba(53, 231, 195, 0.07);
+  --blob-1: rgba(124, 140, 255, 0.22);
+  --blob-2: rgba(53, 231, 195, 0.16);
+  --blob-3: rgba(53, 231, 195, 0.08);
+}
+
+[data-theme="light"] {
+  --ink: #0b1220;
+  --ink-soft: #4b5975;
+  --paper: #f4f7fb;
+  --gold: #0e9f7d;
+  --gold-soft: rgba(14, 159, 125, 0.12);
+  --teal: #4b53c9;
+  --line: rgba(15, 23, 42, 0.13);
+  --text: #1b2536;
+  --card-bg: rgba(255, 255, 255, 0.72);
+  --card-bg-strong: rgba(255, 255, 255, 0.92);
+  --glow: 0 0 24px rgba(14, 159, 125, 0.2);
+  --grid-line: rgba(14, 159, 125, 0.09);
+  --blob-1: rgba(75, 83, 201, 0.1);
+  --blob-2: rgba(14, 159, 125, 0.1);
+  --blob-3: rgba(14, 159, 125, 0.06);
 }
 
 * {
@@ -25,6 +48,7 @@ body {
   font-family: var(--font-sans), sans-serif;
   line-height: 1.6;
   min-height: 100%;
+  transition: background-color 0.35s ease, color 0.35s ease;
 }
 
 /* High-tech ambient background: grid + soft glow blobs, fixed behind all content */
@@ -38,14 +62,15 @@ body::before {
   position: fixed;
   inset: 0;
   z-index: -2;
-  background-color: var(--paper);
+  background-color: transparent;
   background-image:
-    linear-gradient(rgba(53, 231, 195, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(53, 231, 195, 0.07) 1px, transparent 1px);
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
   background-size: 42px 42px;
   background-position: center top;
   mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
   -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+  transition: background-image 0.35s ease;
 }
 
 body::after {
@@ -55,9 +80,10 @@ body::after {
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(600px 400px at 12% -5%, rgba(124, 140, 255, 0.22), transparent 60%),
-    radial-gradient(700px 500px at 100% 10%, rgba(53, 231, 195, 0.16), transparent 60%),
-    radial-gradient(500px 400px at 50% 100%, rgba(53, 231, 195, 0.08), transparent 60%);
+    radial-gradient(600px 400px at 12% -5%, var(--blob-1), transparent 60%),
+    radial-gradient(700px 500px at 100% 10%, var(--blob-2), transparent 60%),
+    radial-gradient(500px 400px at 50% 100%, var(--blob-3), transparent 60%);
+  transition: background 0.35s ease;
 }
 
 h1,
@@ -120,6 +146,7 @@ a {
   border: 1px solid var(--line);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
+  transition: background-color 0.35s ease, border-color 0.35s ease;
 }
 
 /* Sci-fi corner brackets, used to frame highlighted media */

@@ -1,9 +1,19 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
-import { courseTitle, instructor, lessons } from "@/lib/lessons";
+import { instructor, lessons } from "@/lib/lessons";
 import MatrixRain from "./components/MatrixRain";
+import ControlsBar from "./components/ControlsBar";
+import { useLanguage } from "./providers/language-provider";
+import { uiText } from "@/lib/i18n";
+import { courseTitleTranslations, getLocalizedLesson } from "@/lib/lessons-i18n";
 
 export default function HomePage() {
+  const { lang } = useLanguage();
+  const t = uiText[lang];
+  const courseTitle = courseTitleTranslations[lang];
+
   const totalMinutes = lessons.reduce((sum, l) => {
     const [m, s] = l.duration.split(":").map(Number);
     return sum + m + s / 60;
@@ -29,14 +39,25 @@ export default function HomePage() {
             justifyContent: "space-between",
             alignItems: "center",
             padding: "18px 24px",
+            gap: 16,
+            flexWrap: "wrap",
           }}
         >
           <span style={{ fontFamily: "var(--font-serif)", fontWeight: 700, fontSize: "1.25rem", letterSpacing: 0.3 }}>
-            เรียน<span style={{ color: "var(--gold)" }}>รู้</span>
+            {lang === "th" ? (
+              <>
+                เรียน<span style={{ color: "var(--gold)" }}>รู้</span>
+              </>
+            ) : (
+              <span style={{ color: "var(--gold)" }}>{t.brand}</span>
+            )}
           </span>
-          <Link href="/learn" className="btn-primary">
-            เข้าเรียน
-          </Link>
+          <div style={{ display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap" }}>
+            <ControlsBar />
+            <Link href="/learn" className="btn-primary">
+              {t.enterCourse}
+            </Link>
+          </div>
         </nav>
       </header>
 
@@ -67,21 +88,20 @@ export default function HomePage() {
               }}
             >
               <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--gold)", boxShadow: "0 0 8px var(--gold)" }} />
-              ซ่อมสมอง · เดินสู่ความสุข
+              {t.tagline}
             </p>
             <h1 style={{ fontSize: "clamp(2.1rem, 4vw, 2.9rem)", marginTop: 18, maxWidth: "22ch", lineHeight: 1.35 }}>
               {courseTitle}
             </h1>
             <p style={{ marginTop: 20, color: "var(--ink-soft)", maxWidth: "56ch", fontSize: "1.05rem" }}>
-              คอร์สนี้เปิดให้เฉพาะผู้ที่ได้รับรหัสผ่านเข้าเรียนเท่านั้น สอนโดย {instructor} รวม {lessons.length} บทเรียน
-              ความยาวรวมประมาณ {Math.round(totalMinutes)} นาที
+              {t.heroDescription(instructor, lessons.length, Math.round(totalMinutes))}
             </p>
             <div style={{ marginTop: 32, display: "flex", gap: 14, flexWrap: "wrap" }}>
               <Link href="/learn" className="btn-primary">
-                เข้าเรียนตอนนี้
+                {t.enterNow}
               </Link>
               <span className="btn-outline" style={{ cursor: "default" }}>
-                {lessons.length} บทเรียน
+                {t.lessonsCountLabel(lessons.length)}
               </span>
             </div>
           </div>
@@ -137,46 +157,49 @@ export default function HomePage() {
         <div style={{ marginTop: 64 }}>
           <h2 style={{ fontSize: "1.3rem", marginBottom: 20, display: "flex", alignItems: "center", gap: 10 }}>
             <span style={{ width: 4, height: 20, background: "var(--gold)", borderRadius: 2, boxShadow: "0 0 8px var(--gold)" }} />
-            เนื้อหาในคอร์ส
+            {t.courseContentHeading}
           </h2>
           <div className="glass-panel" style={{ borderRadius: 10, overflow: "hidden" }}>
-            {lessons.map((lesson, i) => (
-              <div
-                key={lesson.slug}
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  gap: 16,
-                  padding: "14px 20px",
-                  borderBottom: i < lessons.length - 1 ? "1px solid var(--line)" : "none",
-                  fontSize: "0.95rem",
-                }}
-              >
-                <span style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                  <span
-                    style={{
-                      width: 26,
-                      height: 26,
-                      borderRadius: 6,
-                      background: "rgba(53,231,195,0.1)",
-                      border: "1px solid rgba(53,231,195,0.25)",
-                      color: "var(--gold)",
-                      fontSize: "0.75rem",
-                      fontWeight: 700,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      flexShrink: 0,
-                    }}
-                  >
-                    {i + 1}
+            {lessons.map((lesson, i) => {
+              const localized = getLocalizedLesson(lesson, lang);
+              return (
+                <div
+                  key={lesson.slug}
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    gap: 16,
+                    padding: "14px 20px",
+                    borderBottom: i < lessons.length - 1 ? "1px solid var(--line)" : "none",
+                    fontSize: "0.95rem",
+                  }}
+                >
+                  <span style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                    <span
+                      style={{
+                        width: 26,
+                        height: 26,
+                        borderRadius: 6,
+                        background: "rgba(53,231,195,0.1)",
+                        border: "1px solid rgba(53,231,195,0.25)",
+                        color: "var(--gold)",
+                        fontSize: "0.75rem",
+                        fontWeight: 700,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        flexShrink: 0,
+                      }}
+                    >
+                      {i + 1}
+                    </span>
+                    {localized.title}
                   </span>
-                  {lesson.title}
-                </span>
-                <span style={{ color: "var(--ink-soft)", flexShrink: 0 }}>{lesson.duration}</span>
-              </div>
-            ))}
+                  <span style={{ color: "var(--ink-soft)", flexShrink: 0 }}>{lesson.duration}</span>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>

@@ -11,10 +11,16 @@ export default function MatrixRain({
   className,
   fontSize = 16,
   color = "#3dd97a",
+  bgColor = "rgba(0, 0, 0, 0.08)",
+  initialFill = "#000",
 }: {
   className?: string;
   fontSize?: number;
   color?: string;
+  /** translucent color painted each frame to create the fading trail effect */
+  bgColor?: string;
+  /** opaque color used for the very first frame so the trail starts clean */
+  initialFill?: string;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -45,8 +51,8 @@ export default function MatrixRain({
     }
 
     function draw() {
-      // translucent black to create fading trail
-      ctx!.fillStyle = "rgba(0, 0, 0, 0.08)";
+      // translucent overlay to create the fading trail
+      ctx!.fillStyle = bgColor;
       ctx!.fillRect(0, 0, width, height);
 
       ctx!.fillStyle = color;
@@ -67,8 +73,8 @@ export default function MatrixRain({
     }
 
     setup();
-    // paint an initial opaque black frame so the fade-trail effect starts clean
-    ctx.fillStyle = "#000";
+    // paint an initial opaque frame so the fade-trail effect starts clean
+    ctx.fillStyle = initialFill;
     ctx.fillRect(0, 0, width, height);
     draw();
 
@@ -79,7 +85,7 @@ export default function MatrixRain({
       cancelAnimationFrame(animationId);
       resizeObserver?.disconnect();
     };
-  }, [fontSize, color]);
+  }, [fontSize, color, bgColor, initialFill]);
 
   return (
     <canvas

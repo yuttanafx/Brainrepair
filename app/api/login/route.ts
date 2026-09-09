@@ -9,13 +9,13 @@ export async function POST(req: NextRequest) {
 
   if (!correctPassword) {
     return NextResponse.json(
-      { error: "ยังไม่ได้ตั้งค่า COURSE_PASSWORD บนเซิร์ฟเวอร์" },
+      { error: "server_not_configured" },
       { status: 500 }
     );
   }
 
   if (password !== correctPassword) {
-    return NextResponse.json({ error: "รหัสผ่านไม่ถูกต้อง" }, { status: 401 });
+    return NextResponse.json({ error: "invalid_password" }, { status: 401 });
   }
 
   const token = await getExpectedToken();
