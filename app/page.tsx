@@ -12,9 +12,14 @@ export default function HomePage() {
   return (
     <main style={{ minHeight: "100vh" }}>
       <header
+        className="glass-panel"
         style={{
-          borderBottom: "1px solid var(--line)",
-          background: "rgba(246,243,236,0.95)",
+          position: "sticky",
+          top: 0,
+          zIndex: 10,
+          borderLeft: "none",
+          borderRight: "none",
+          borderTop: "none",
         }}
       >
         <nav
@@ -26,7 +31,7 @@ export default function HomePage() {
             padding: "18px 24px",
           }}
         >
-          <span style={{ fontFamily: "var(--font-serif)", fontWeight: 700, fontSize: "1.25rem" }}>
+          <span style={{ fontFamily: "var(--font-serif)", fontWeight: 700, fontSize: "1.25rem", letterSpacing: 0.3 }}>
             เรียน<span style={{ color: "var(--gold)" }}>รู้</span>
           </span>
           <Link href="/learn" className="btn-primary">
@@ -35,82 +40,141 @@ export default function HomePage() {
         </nav>
       </header>
 
-      <section className="wrap" style={{ padding: "72px 0" }}>
+      <section className="wrap" style={{ padding: "80px 0 64px" }}>
         <div
           style={{
             display: "flex",
-            flexWrap: "wrap",
-            gap: 48,
+            flexWrap: "wrap-reverse",
+            gap: 56,
             alignItems: "center",
           }}
         >
-          <div style={{ flex: "1 1 360px", minWidth: 280 }}>
-            <p style={{ color: "var(--teal)", fontWeight: 600, fontSize: "0.9rem" }}>ศิลปะดิจิทัลด้วย AI</p>
-            <h1 style={{ fontSize: "clamp(2rem, 4vw, 2.8rem)", marginTop: 12, maxWidth: "22ch", lineHeight: 1.3 }}>
+          <div style={{ flex: "1 1 380px", minWidth: 280 }}>
+            <p
+              style={{
+                color: "var(--gold)",
+                fontWeight: 700,
+                fontSize: "0.82rem",
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                padding: "6px 12px",
+                borderRadius: 20,
+                background: "var(--gold-soft)",
+                border: "1px solid rgba(53,231,195,0.3)",
+              }}
+            >
+              <span style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--gold)", boxShadow: "0 0 8px var(--gold)" }} />
+              ซ่อมสมอง · เดินสู่ความสุข
+            </p>
+            <h1 style={{ fontSize: "clamp(2.1rem, 4vw, 2.9rem)", marginTop: 18, maxWidth: "22ch", lineHeight: 1.35 }}>
               {courseTitle}
             </h1>
             <p style={{ marginTop: 20, color: "var(--ink-soft)", maxWidth: "56ch", fontSize: "1.05rem" }}>
               คอร์สนี้เปิดให้เฉพาะผู้ที่ได้รับรหัสผ่านเข้าเรียนเท่านั้น สอนโดย {instructor} รวม {lessons.length} บทเรียน
               ความยาวรวมประมาณ {Math.round(totalMinutes)} นาที
             </p>
-            <div style={{ marginTop: 32, display: "flex", gap: 14 }}>
+            <div style={{ marginTop: 32, display: "flex", gap: 14, flexWrap: "wrap" }}>
               <Link href="/learn" className="btn-primary">
                 เข้าเรียนตอนนี้
               </Link>
+              <span className="btn-outline" style={{ cursor: "default" }}>
+                {lessons.length} บทเรียน
+              </span>
             </div>
           </div>
 
-          <div
-            style={{
-              flex: "1 1 280px",
-              maxWidth: 340,
-              position: "relative",
-              aspectRatio: "9 / 16",
-              borderRadius: 8,
-              overflow: "hidden",
-              boxShadow: "0 20px 50px rgba(23,35,61,0.35)",
-              border: "1px solid var(--line)",
-            }}
-          >
-            {/* Matrix digital-rain animation layer */}
-            <MatrixRain />
-
-            {/* Book cover image floating above the animated background */}
-            <Image
-              src="/book-cover.jpg"
-              alt="17 สัญลักษณ์ เปลี่ยนชีวิต — 17 Symbols to Guide You to Happiness"
-              fill
-              priority
+          <div style={{ flex: "0 1 320px", display: "flex", justifyContent: "center" }}>
+            <div
+              className="tech-frame"
               style={{
-                objectFit: "contain",
-                padding: 14,
+                width: "100%",
+                maxWidth: 300,
                 position: "relative",
-                zIndex: 1,
-                filter: "drop-shadow(0 10px 24px rgba(0,0,0,0.5))",
+                aspectRatio: "1536 / 2744",
+                borderRadius: 14,
+                overflow: "hidden",
+                boxShadow: "0 30px 70px rgba(0,0,0,0.55), var(--glow)",
+                border: "1px solid var(--line)",
               }}
-              sizes="(max-width: 768px) 90vw, 340px"
-            />
+            >
+              <span className="corner-tl" />
+              <span className="corner-br" />
+
+              {/* Matrix digital-rain animation layer */}
+              <MatrixRain color="#35e7c3" />
+
+              {/* Book cover image, filling the frame edge-to-edge at its native aspect ratio */}
+              <Image
+                src="/book-cover.jpg"
+                alt="17 สัญลักษณ์ เปลี่ยนชีวิต — 17 Symbols to Guide You to Happiness"
+                fill
+                priority
+                style={{
+                  objectFit: "cover",
+                  position: "relative",
+                  zIndex: 1,
+                }}
+                sizes="(max-width: 768px) 90vw, 300px"
+              />
+
+              {/* subtle top/bottom vignette so the frame edges feel intentional */}
+              <div
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  zIndex: 2,
+                  pointerEvents: "none",
+                  boxShadow: "inset 0 0 40px rgba(0,0,0,0.35)",
+                }}
+              />
+            </div>
           </div>
         </div>
 
-        <div style={{ marginTop: 56, borderTop: "1px solid var(--line)", paddingTop: 32 }}>
-          <h2 style={{ fontSize: "1.3rem", marginBottom: 20 }}>เนื้อหาในคอร์ส</h2>
-          <div style={{ border: "1px solid var(--line)", borderRadius: 4, overflow: "hidden", background: "#fff" }}>
+        <div style={{ marginTop: 64 }}>
+          <h2 style={{ fontSize: "1.3rem", marginBottom: 20, display: "flex", alignItems: "center", gap: 10 }}>
+            <span style={{ width: 4, height: 20, background: "var(--gold)", borderRadius: 2, boxShadow: "0 0 8px var(--gold)" }} />
+            เนื้อหาในคอร์ส
+          </h2>
+          <div className="glass-panel" style={{ borderRadius: 10, overflow: "hidden" }}>
             {lessons.map((lesson, i) => (
               <div
                 key={lesson.slug}
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
+                  alignItems: "center",
+                  gap: 16,
                   padding: "14px 20px",
                   borderBottom: i < lessons.length - 1 ? "1px solid var(--line)" : "none",
                   fontSize: "0.95rem",
                 }}
               >
-                <span>
-                  {i + 1}. {lesson.title}
+                <span style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                  <span
+                    style={{
+                      width: 26,
+                      height: 26,
+                      borderRadius: 6,
+                      background: "rgba(53,231,195,0.1)",
+                      border: "1px solid rgba(53,231,195,0.25)",
+                      color: "var(--gold)",
+                      fontSize: "0.75rem",
+                      fontWeight: 700,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      flexShrink: 0,
+                    }}
+                  >
+                    {i + 1}
+                  </span>
+                  {lesson.title}
                 </span>
-                <span style={{ color: "var(--ink-soft)" }}>{lesson.duration}</span>
+                <span style={{ color: "var(--ink-soft)", flexShrink: 0 }}>{lesson.duration}</span>
               </div>
             ))}
           </div>

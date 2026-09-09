@@ -48,13 +48,13 @@ function LoginForm() {
     >
       <form
         onSubmit={handleSubmit}
+        className="glass-panel"
         style={{
-          background: "#fff",
-          border: "1px solid var(--line)",
-          borderRadius: 4,
+          borderRadius: 10,
           padding: "40px 36px",
           width: "100%",
           maxWidth: 380,
+          boxShadow: "0 20px 60px rgba(0,0,0,0.5)",
         }}
       >
         <h1 style={{ fontSize: "1.4rem" }}>เข้าเรียน</h1>
@@ -75,9 +75,11 @@ function LoginForm() {
             marginTop: 8,
             padding: "12px 14px",
             border: "1px solid var(--line)",
-            borderRadius: 3,
+            borderRadius: 6,
             fontSize: "1rem",
             fontFamily: "var(--font-sans)",
+            background: "rgba(255,255,255,0.04)",
+            color: "var(--text)",
           }}
         />
 

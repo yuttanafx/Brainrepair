@@ -20,7 +20,7 @@ export default function LessonPage({ params }: { params: { slug: string } }) {
 
   return (
     <div style={{ minHeight: "100vh" }}>
-      <header style={{ borderBottom: "1px solid var(--line)", background: "rgba(246,243,236,0.95)" }}>
+      <header className="glass-panel" style={{ borderTop: "none", borderLeft: "none", borderRight: "none" }}>
         <nav
           className="wrap"
           style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 24px" }}
@@ -135,7 +135,7 @@ export default function LessonPage({ params }: { params: { slug: string } }) {
                         alignItems: "flex-start",
                         padding: "11px 10px",
                         borderRadius: 3,
-                        background: isCurrent ? "rgba(217,154,61,0.14)" : "transparent",
+                        background: isCurrent ? "rgba(53,231,195,0.12)" : "transparent",
                       }}
                     >
                       <span
