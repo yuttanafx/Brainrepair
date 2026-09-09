@@ -1,5 +1,7 @@
 import Link from "next/link";
+import Image from "next/image";
 import { courseTitle, instructor, lessons } from "@/lib/lessons";
+import MatrixRain from "./components/MatrixRain";
 
 export default function HomePage() {
   const totalMinutes = lessons.reduce((sum, l) => {
@@ -34,18 +36,61 @@ export default function HomePage() {
       </header>
 
       <section className="wrap" style={{ padding: "72px 0" }}>
-        <p style={{ color: "var(--teal)", fontWeight: 600, fontSize: "0.9rem" }}>ศิลปะดิจิทัลด้วย AI</p>
-        <h1 style={{ fontSize: "clamp(2rem, 4vw, 2.8rem)", marginTop: 12, maxWidth: "22ch", lineHeight: 1.3 }}>
-          {courseTitle}
-        </h1>
-        <p style={{ marginTop: 20, color: "var(--ink-soft)", maxWidth: "56ch", fontSize: "1.05rem" }}>
-          คอร์สนี้เปิดให้เฉพาะผู้ที่ได้รับรหัสผ่านเข้าเรียนเท่านั้น สอนโดย {instructor} รวม {lessons.length} บทเรียน
-          ความยาวรวมประมาณ {Math.round(totalMinutes)} นาที
-        </p>
-        <div style={{ marginTop: 32, display: "flex", gap: 14 }}>
-          <Link href="/learn" className="btn-primary">
-            เข้าเรียนตอนนี้
-          </Link>
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: 48,
+            alignItems: "center",
+          }}
+        >
+          <div style={{ flex: "1 1 360px", minWidth: 280 }}>
+            <p style={{ color: "var(--teal)", fontWeight: 600, fontSize: "0.9rem" }}>ศิลปะดิจิทัลด้วย AI</p>
+            <h1 style={{ fontSize: "clamp(2rem, 4vw, 2.8rem)", marginTop: 12, maxWidth: "22ch", lineHeight: 1.3 }}>
+              {courseTitle}
+            </h1>
+            <p style={{ marginTop: 20, color: "var(--ink-soft)", maxWidth: "56ch", fontSize: "1.05rem" }}>
+              คอร์สนี้เปิดให้เฉพาะผู้ที่ได้รับรหัสผ่านเข้าเรียนเท่านั้น สอนโดย {instructor} รวม {lessons.length} บทเรียน
+              ความยาวรวมประมาณ {Math.round(totalMinutes)} นาที
+            </p>
+            <div style={{ marginTop: 32, display: "flex", gap: 14 }}>
+              <Link href="/learn" className="btn-primary">
+                เข้าเรียนตอนนี้
+              </Link>
+            </div>
+          </div>
+
+          <div
+            style={{
+              flex: "1 1 280px",
+              maxWidth: 340,
+              position: "relative",
+              aspectRatio: "9 / 16",
+              borderRadius: 8,
+              overflow: "hidden",
+              boxShadow: "0 20px 50px rgba(23,35,61,0.35)",
+              border: "1px solid var(--line)",
+            }}
+          >
+            {/* Matrix digital-rain animation layer */}
+            <MatrixRain />
+
+            {/* Book cover image floating above the animated background */}
+            <Image
+              src="/book-cover.jpg"
+              alt="17 สัญลักษณ์ เปลี่ยนชีวิต — 17 Symbols to Guide You to Happiness"
+              fill
+              priority
+              style={{
+                objectFit: "contain",
+                padding: 14,
+                position: "relative",
+                zIndex: 1,
+                filter: "drop-shadow(0 10px 24px rgba(0,0,0,0.5))",
+              }}
+              sizes="(max-width: 768px) 90vw, 340px"
+            />
+          </div>
         </div>
 
         <div style={{ marginTop: 56, borderTop: "1px solid var(--line)", paddingTop: 32 }}>
