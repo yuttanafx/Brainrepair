@@ -108,7 +108,7 @@ export default function LessonClient({
               <span>{t.chapterOf(index + 1, lessons.length)}</span>
             </div>
 
-            <div style={{ display: "flex", gap: 14, marginTop: 26 }}>
+            <div style={{ display: "flex", gap: 14, marginTop: 26, flexWrap: "wrap" }}>
               {next ? (
                 <Link href={`/learn/${next.slug}`} className="btn-primary">
                   {t.nextLesson}
@@ -118,6 +118,15 @@ export default function LessonClient({
                   {t.courseComplete}
                 </span>
               )}
+              <a
+                href={`/api/lessons/${lesson.slug}/handout?lang=${lang}`}
+                download
+                className="btn-outline"
+                style={{ display: "inline-flex", alignItems: "center", gap: 8 }}
+              >
+                <span aria-hidden="true">⬇</span>
+                {t.downloadHandout}
+              </a>
             </div>
 
             <div style={{ marginTop: 32, maxWidth: "70ch", color: "var(--ink-soft)", fontSize: "0.95rem" }}>

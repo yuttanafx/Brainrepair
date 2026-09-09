@@ -28,6 +28,7 @@ export type UiText = {
   serverNotConfigured: string;
   themeToLight: string;
   themeToDark: string;
+  downloadHandout: string;
 };
 
 export const uiText: Record<Lang, UiText> = {
@@ -60,6 +61,7 @@ export const uiText: Record<Lang, UiText> = {
     serverNotConfigured: "ยังไม่ได้ตั้งค่า COURSE_PASSWORD บนเซิร์ฟเวอร์",
     themeToLight: "สลับเป็นโหมดสว่าง",
     themeToDark: "สลับเป็นโหมดมืด",
+    downloadHandout: "ดาวน์โหลดเนื้อหาบทนี้",
   },
   en: {
     brand: "Learn",
@@ -90,6 +92,7 @@ export const uiText: Record<Lang, UiText> = {
     serverNotConfigured: "COURSE_PASSWORD hasn't been configured on the server",
     themeToLight: "Switch to light mode",
     themeToDark: "Switch to dark mode",
+    downloadHandout: "Download lesson notes",
   },
   zh: {
     brand: "学习",
@@ -120,5 +123,6 @@ export const uiText: Record<Lang, UiText> = {
     serverNotConfigured: "服务器尚未配置 COURSE_PASSWORD",
     themeToLight: "切换到浅色模式",
     themeToDark: "切换到深色模式",
+    downloadHandout: "下载本课内容",
   },
 };
