@@ -5,6 +5,7 @@ import Image from "next/image";
 import { instructor, lessons } from "@/lib/lessons";
 import MatrixRain from "./components/MatrixRain";
 import ControlsBar from "./components/ControlsBar";
+import PurchaseNotice from "./components/PurchaseNotice";
 import { useLanguage } from "./providers/language-provider";
 import { uiText } from "@/lib/i18n";
 import { courseTitleTranslations, getLocalizedLesson } from "@/lib/lessons-i18n";
@@ -202,6 +203,8 @@ export default function HomePage() {
             })}
           </div>
         </div>
+
+        <PurchaseNotice />
       </section>
     </main>
   );
