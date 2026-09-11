@@ -47,7 +47,7 @@ export default function PurchaseNotice() {
           <p style={{ marginTop: 4, color: "var(--ink-soft)" }}>หนังสือพร้อมส่ง!!! ⭐️⭐️⭐️⭐️⭐️</p>
           <p style={{ marginTop: 10 }}>มี E-book (ให้อ่านก่อน)</p>
           <p style={{ marginTop: 2, color: "var(--ink-soft)" }}>รับ E-book กรุณาส่ง E-mail (ไม่มีปลายทาง) 😊</p>
-          <p style={{ marginTop: 10 }}>สามารถชำระเงินเพื่อรับรหัสเข้าหนังสือพูดได้แจ้งโอนเงิน pichai.6022@gmail.com</p>
+          <p style={{ marginTop: 10 }}>สามารถชำระเงินเพื่อรับรหัสเข้าหนังสือพูดได้แจ้งโอนเงิน pichai.6022@gmail.com Line:ซ่อมสมอง</p>
         </div>
 
         <div
