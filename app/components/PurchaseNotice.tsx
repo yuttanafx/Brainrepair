@@ -15,6 +15,7 @@ export default function PurchaseNotice() {
   const [pdpaConsent, setPdpaConsent] = useState(false);
   const [pdpaOpen, setPdpaOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
@@ -22,7 +23,7 @@ export default function PurchaseNotice() {
     setForm((prev) => ({ ...prev, [name]: value }));
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!form.name.trim() || !form.email.trim()) {
       setError("กรุณากรอกชื่อและอีเมลให้ครบถ้วน");
@@ -33,10 +34,22 @@ export default function PurchaseNotice() {
       return;
     }
     setError("");
-    // No backend endpoint exists yet to persist/notify this submission.
-    // For now this just confirms locally on-screen; wire this up to an
-    // API route / email service if you want real notifications.
-    setSubmitted(true);
+    setSubmitting(true);
+    try {
+      const res = await fetch("/api/notify-transfer", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) {
+        throw new Error("send_failed");
+      }
+      setSubmitted(true);
+    } catch {
+      setError("ส่งข้อมูลไม่สำเร็จ กรุณาลองใหม่อีกครั้ง หรือแจ้งโอนผ่านอีเมล/Line ด้านบนแทน");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -193,8 +206,13 @@ export default function PurchaseNotice() {
 
             {error && <p className="error-text">{error}</p>}
 
-            <button type="submit" className="btn-primary" style={{ alignSelf: "flex-start" }}>
-              แจ้งโอน
+            <button
+              type="submit"
+              className="btn-primary"
+              disabled={submitting}
+              style={{ alignSelf: "flex-start", opacity: submitting ? 0.6 : 1, cursor: submitting ? "default" : "pointer" }}
+            >
+              {submitting ? "กำลังส่ง..." : "แจ้งโอน"}
             </button>
           </form>
         )}
