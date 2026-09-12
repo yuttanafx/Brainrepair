@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 
-const BANK_ACCOUNT_NUMBER = "093-2-58242-9";
-const BANK_NAME = "ธนาคารไทยพาณิชย์ (SCB)";
-const ACCOUNT_HOLDER = "บริษัท บราเธอร์ อินโนเวชั่น จำกัด";
+const BANK_ACCOUNT_NUMBER = "032-8-13579-5";
+const BANK_NAME = "ธนาคารกสิกรไทย";
+const ACCOUNT_HOLDER = "นส. ศศิรัตน์ พวงเพกา";
 const PRICE = "250.-";
 const STOCK_COUNT = "100 เล่ม เท่านั้น!!";
 
@@ -47,7 +47,7 @@ export default function PurchaseNotice() {
           <p style={{ marginTop: 4, color: "var(--ink-soft)" }}>หนังสือพร้อมส่ง!!! ⭐️⭐️⭐️⭐️⭐️</p>
           <p style={{ marginTop: 10 }}>มี E-book (ให้อ่านก่อน)</p>
           <p style={{ marginTop: 2, color: "var(--ink-soft)" }}>รับ E-book กรุณาส่ง E-mail (ไม่มีปลายทาง) 😊</p>
-          <p style={{ marginTop: 10 }}>สามารถชำระเงินเพื่อรับรหัสเข้าหนังสือพูดได้แจ้งโอนเงิน pichai.6022@gmail.com Line:ซ่อมสมอง</p>
+          <p style={{ marginTop: 10 }}>สามารถชำระเงินเพื่อรับรหัสเข้าหนังสือพูดได้แจ้งโอนเงิน winyoo.a999@gmail.com Line:ซ่อมสมอง</p>
         </div>
 
         <div
